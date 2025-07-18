@@ -440,6 +440,11 @@
                     </volume-pricing>
                   {%- endif -%}
                 </div>
+                {%if product.metafields.custom.material != blank%}
+                  <div class="product-material">Material:
+                  {{product.metafields.custom.material}}
+                  </div>
+                {%endif%}
               {%- when 'popup' -%}
                 <modal-opener
                   class="product-popup-modal__opener quick-add-hidden"
