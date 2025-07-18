@@ -314,6 +314,13 @@
     </main>
 
     {% sections 'footer-group' %}
+    <section class="banner">
+      <img
+        src="{{'banner.jpg' | file_url}}"
+        alt="banner"
+        class="site-banner"
+      />
+    </section>
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
