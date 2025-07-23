@@ -40,25 +40,36 @@
     display: flex;
   }
 
-  .list-menu {
+  .list-menu, .list-menu1, .list-menu2 {
     list-style: none;
-    padding: 0;
+    padding: 5px;
     margin: 0;
   }
 
   .list-menu--inline {
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+  }
+
+  .list-menu1--inline, .list-menu2--inline {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
   summary.list-menu__item {
     padding-right: 2.7rem;
   }
 
-  .list-menu__item {
+  .list-menu__item, .list-menu1__item, .list-menu2__item {
     display: flex;
     align-items: center;
     line-height: calc(1 + 0.3 / var(--font-body-scale));
+  }
+
+  .list-menu1__item, .list-menu2__item {
+    font-family: 'Chaparral Pro', serif;
   }
 
   .list-menu__item--link {
@@ -68,11 +79,145 @@
     line-height: calc(1 + 0.8 / var(--font-body-scale));
   }
 
+  .list-menu1__item a,
+  .list-menu2__item a,
+  .list-menu1__item--link,
+  .list-menu2__item--link {
+    text-decoration: none !important;
+  }
+
+  .list-menu1__item a,
+  .list-menu1__item--link {
+    color: #FFFFFF;
+  }
+
+  .list-menu2__item a,
+  .list-menu2__item--link {
+    color: #000000;
+  }
+
+  .list-menu1__item a:hover,
+  .list-menu2__item a:hover,
+  .list-menu1__item--link:hover,
+  .list-menu2__item--link:hover {
+    text-decoration: underline !important;
+  }
+
+
+  .list-menu2__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -50%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 1px;
+    background-color: currentColor;
+  }
+
+  .list-menu2__item {
+    position: relative;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header__search-bar {
+      display: none;
+    }
+    .header__search-mobile {
+      display: block;
+    }
+  }
   @media screen and (min-width: 750px) {
+    .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+    .section-header {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
     .list-menu__item--link {
       padding-bottom: 0.5rem;
       padding-top: 0.5rem;
     }
+    .header__search-mobile {
+      display: none;
+    }
+    .header__search-bar {
+      display: block;
+    }
+  }
+
+  .header__search-bar, .header__search-mobile {
+    flex: 1 1 auto;
+    max-width: 500px;
+    margin: 0 2rem;
+  }
+
+  .header__search-form {
+    position: relative;
+  }
+
+  .header__search-bar .field {
+    margin-bottom: 0;
+  }
+
+  .header__search-bar .search__input, .header__search-mobile .search__input {
+    width: 100%;
+    padding-right: 4rem;
+    border: 2px solid rgba(70, 114, 53, 1);
+    background: rgba(var(--color-background), 1);
+  }
+
+  .header__search-bar .search__button, .header__search-mobile .search__button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 4rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .header__search-bar .predictive-search, .header__search-mobile .predictive-search {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(var(--color-background), 1);
+    border: 2px solid rgba(70, 114, 53, 1);
+    border-top: none;
+  }
+  
+  .header__search-bar .search__input::placeholder, .header__search-mobile .search__input::placeholder {
+    opacity: 2.5;
+    font-size: 14px;
+    color: rgba(70, 114, 53, 1);
+  }
+
+  .search-modal .search__input::placeholder {
+    opacity: 2.5;
+    font-size: 14px;
+    color: rgba(70, 114, 53, 1);
+  }
+  .list-menu--inline {
+    flex: 0 0 auto;
+    gap: 2rem;
+  }
+
+  .list-menu1--inline, .list-menu2--inline {
+    flex: 1 1 auto;
+    gap: 2rem;
+    justify-content: space-evenly;
+  }
+
+  
+
+  /* cart icon */
+  .header__icons {
+    flex: 0 0 auto;
   }
 </style>
 
@@ -86,17 +231,34 @@
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-header {
-      margin-bottom: {{ section.settings.margin_bottom }}px;
-    }
-  }
-
   @media screen and (min-width: 990px) {
     .header {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+  }
+  @media screen and (max-width: 990px) {
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header__search-mobile {
+      display: block;
+      order: 2;
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+    .header__search-bar {
+      display: none;
+    }
+    .header__heading,
+    .list-menu--inline,
+    .header__icons {
+      order: 1;
+    }
+    
   }
 {%- endstyle -%}
 
@@ -118,6 +280,9 @@
   endif
 %}
 
+
+
+
 <{{ header_tag }}
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
@@ -136,6 +301,7 @@
       assign localization_forms = true
     endif
   -%}
+  <!-- Logo -->
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
       if section.settings.menu != blank
@@ -146,7 +312,7 @@
         render 'header-search', input_id: 'Search-In-Modal-1'
       endif
     -%}
-
+    
     {%- if section.settings.logo_position != 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
@@ -179,8 +345,60 @@
         </h1>
       {%- endif -%}
     {%- endif -%}
+      
+      <!-- Inline Search Bar -->
+      <div class="header__search-bar">
+        {%- if settings.predictive_search_enabled -%}
+          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
+        {%- else -%}
+          <search-form>
+        {%- endif -%}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search header__search-form">
+          <div class="field">
+            <input
+              class="search__input field__input"
+              id="Search-In-Header"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="What are you looking for today?"
+              {%- if settings.predictive_search_enabled -%}
+                role="combobox"
+                aria-expanded="false"
+                aria-owns="predictive-search-results-header"
+                aria-controls="predictive-search-results-header"
+                aria-haspopup="listbox"
+                aria-autocomplete="list"
+                autocorrect="off"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+              {%- endif -%}
+            >
+            <input type="hidden" name="options[prefix]" value="last">
+            <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+              <span class="svg-wrapper">
+                {{- 'lupa.svg' | inline_asset_content -}}
+              </span>
+            </button>
+          </div>
+          
+          {%- if settings.predictive_search_enabled -%}
+            <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+              {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+            </div>
+          {%- endif -%}
+        </form>
+        {%- if settings.predictive_search_enabled -%}
+          </predictive-search>
+        {%- else -%}
+          </search-form>
+        {%- endif -%}
+      </div>
 
-    {%- liquid
+      <!-- Nav -->
+
+      {%- liquid
       if section.settings.menu != blank
         if section.settings.menu_type_desktop == 'dropdown'
           render 'header-dropdown-menu'
@@ -223,6 +441,7 @@
       {%- endif -%}
     {%- endif -%}
 
+    <!-- Icons -->
     <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
       <div class="desktop-localization-wrapper">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
@@ -247,49 +466,12 @@
           </localization-form>
         {%- endif -%}
       </div>
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
-
-      {%- if shop.customer_accounts_enabled -%}
-        <a
-          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
-          rel="nofollow"
-        >
-          {%- if section.settings.enable_customer_avatar -%}
-            <account-icon>
-              {%- if customer and customer.has_avatar? -%}
-                {{ customer | avatar }}
-              {%- else -%}
-                <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-              {%- endif -%}
-            </account-icon>
-          {%- else -%}
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-          {%- endif -%}
-          <span class="visually-hidden">
-            {%- liquid
-              if customer
-                echo 'customer.account_fallback' | t
-              else
-                echo 'customer.log_in' | t
-              endif
-            -%}
-          </span>
-        </a>
-      {%- endif -%}
-
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when '@app' -%}
-            {% render block %}
-        {%- endcase -%}
-      {%- endfor -%}
-
+      
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         {% if cart == empty %}
-          <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
+          <span class="svg-wrapper">{{ 'cart.svg' | inline_asset_content }}</span>
         {% else %}
-          <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
+          <span class="svg-wrapper">{{ 'cart.svg' | inline_asset_content }}</span>
         {% endif %}
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         {%- if cart != empty -%}
@@ -302,6 +484,56 @@
         {%- endif -%}
       </a>
     </div>
+
+    <!-- Mobile Search Icon (shows modal) -->
+      <div class="header__search-mobile">
+        {%- if settings.predictive_search_enabled -%}
+          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
+        {%- else -%}
+          <search-form>
+        {%- endif -%}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search header__search-form">
+          <div class="field">
+            <input
+              class="search__input field__input"
+              id="Search-In-Header"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="What are you looking for today?"
+              {%- if settings.predictive_search_enabled -%}
+                role="combobox"
+                aria-expanded="false"
+                aria-owns="predictive-search-results-header"
+                aria-controls="predictive-search-results-header"
+                aria-haspopup="listbox"
+                aria-autocomplete="list"
+                autocorrect="off"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+              {%- endif -%}
+            >
+            <input type="hidden" name="options[prefix]" value="last">
+            <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+              <span class="svg-wrapper">
+                {{- 'lupa.svg' | inline_asset_content -}}
+              </span>
+            </button>
+          </div>
+          
+          {%- if settings.predictive_search_enabled -%}
+            <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+              {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+            </div>
+          {%- endif -%}
+        </form>
+        {%- if settings.predictive_search_enabled -%}
+          </predictive-search>
+        {%- else -%}
+          </search-form>
+        {%- endif -%}
+      </div>
   </header>
 </{{ header_tag }}>
 

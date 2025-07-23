@@ -1,1 +1,83 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"text":"Welcome to our store","link":""}}},"block_order":["announcement-bar-0"],"settings":{"auto_rotate":false,"change_slides_speed":5,"color_scheme":"scheme-1","show_line_separator":true,"show_social":false,"enable_country_selector":false,"enable_language_selector":false}},"header":{"type":"header","settings":{"logo_position":"middle-left","mobile_logo_position":"center","menu":"main-menu","menu_type_desktop":"dropdown","sticky_header_type":"on-scroll-up","show_line_separator":true,"color_scheme":"scheme-1","menu_color_scheme":"scheme-1","enable_country_selector":true,"enable_language_selector":true,"enable_customer_avatar":true,"margin_bottom":0,"padding_top":20,"padding_bottom":20}}},"order":["announcement-bar","header"]}
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Mother's Day is May 11 – order early!",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0"
+      ],
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-2",
+        "show_line_separator": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "store1_name": "Store 1",
+        "store1_image": "shopify://shop_images/dyqan1.svg",
+        "store1_description": "",
+        "store1_url": "https://klea-shefa.myshopify.com",
+        "store2_name": "Store 2",
+        "store2_image": "shopify://shop_images/dyqan2.svg",
+        "store2_description": "",
+        "store2_url": "https://klea-shefa.myshopify.com"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": false,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "custom_liquid_YVxP7U": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<nav class=\"dual-nav nav--bottom page-width\">\n  <ul class=\"list-menu list-menu--inline\">\n    {% for link in linklists['navigation-links-1'].links %}\n      <li class=\"list-menu__item list-menu__item--link\">\n        <a href=\"{{ link.url }}\" class=\"list-menu__link\">{{ link.title }}</a>\n      </li>\n    {% endfor %}\n  </ul>\n</nav>",
+        "color_scheme": "",
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    },
+    "custom_liquid_He4QtC": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<nav class=\"dual-nav nav--bottom page-width\">\n  <ul class=\"list-menu list-menu--inline\">\n    {% for link in linklists['navigation-links-2'].links %}\n      <li class=\"list-menu__item list-menu__item--link\">\n        <a href=\"{{ link.url }}\" class=\"list-menu__link\">{{ link.title }}</a>\n      </li>\n    {% endfor %}\n  </ul>\n</nav>",
+        "color_scheme": "",
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "custom_liquid_YVxP7U",
+    "custom_liquid_He4QtC"
+  ]
+}

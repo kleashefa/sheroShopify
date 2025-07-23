@@ -13,7 +13,7 @@
     <summary
       class="header__icon header__icon--search header__icon--summary link focus-inset modal__toggle"
       aria-haspopup="dialog"
-      aria-label="{{ 'general.search.search' | t }}"
+      aria-label="What are you looking for today?"
     >
       <span>
         <span class="svg-wrapper">
@@ -48,7 +48,7 @@
               type="search"
               name="q"
               value="{{ search.terms | escape }}"
-              placeholder="{{ 'general.search.search' | t }}"
+              placeholder="What are you looking for today?"
               {%- if settings.predictive_search_enabled -%}
                 role="combobox"
                 aria-expanded="false"
