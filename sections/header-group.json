@@ -57,8 +57,8 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<nav class=\"dual-nav nav--bottom page-width\">\n  <ul class=\"list-menu list-menu--inline\">\n    {% for link in linklists['navigation-links-1'].links %}\n      <li class=\"list-menu__item list-menu__item--link\">\n        <a href=\"{{ link.url }}\" class=\"list-menu__link\">{{ link.title }}</a>\n      </li>\n    {% endfor %}\n  </ul>\n</nav>",
-        "color_scheme": "",
+        "custom_liquid": "<nav class=\"dual-nav nav--bottom page-width\">\n  <ul class=\"list-menu1 list-menu1--inline\">\n    {% for link in linklists['navigation-links-1'].links %}\n      <li class=\"list-menu1__item list-menu1__item--link\">\n        <a href=\"{{ link.url }}\" class=\"list-menu1__link\">{{ link.title }}</a>\n      </li>\n    {% endfor %}\n  </ul>\n</nav>",
+        "color_scheme": "scheme-3676043e-550c-41d7-acae-24be3dcdc5e8",
         "padding_top": 4,
         "padding_bottom": 4
       }
@@ -67,8 +67,8 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<nav class=\"dual-nav nav--bottom page-width\">\n  <ul class=\"list-menu list-menu--inline\">\n    {% for link in linklists['navigation-links-2'].links %}\n      <li class=\"list-menu__item list-menu__item--link\">\n        <a href=\"{{ link.url }}\" class=\"list-menu__link\">{{ link.title }}</a>\n      </li>\n    {% endfor %}\n  </ul>\n</nav>",
-        "color_scheme": "",
+        "custom_liquid": "<nav class=\"dual-nav nav--bottom page-width\">\n  <ul class=\"list-menu2 list-menu2--inline\">\n    {% for link in linklists['navigation-links-2'].links %}\n      <li class=\"list-menu2__item list-menu2__item--link\">\n        <a href=\"{{ link.url }}\" class=\"list-menu2__link\">{{ link.title }}</a>\n      </li>\n    {% endfor %}\n  </ul>\n</nav>",
+        "color_scheme": "scheme-78716aaa-04cd-42e5-a591-b3da60535912",
         "padding_top": 4,
         "padding_bottom": 4
       }
