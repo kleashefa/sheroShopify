@@ -30,7 +30,78 @@
   
   .stores-section {
     display: flex;
+    flex-direction: column;
     flex-shrink: 0;
+    gap: 0.5rem;
+  }
+  
+  .shopify-tabs.store-tabs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+  }
+  
+  .store-tab {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 2px;
+  }
+  
+  .store-tab.current {
+    opacity: 1;
+    border-color: rgba(70, 114, 53, 1);
+  }
+  
+  .store-tab:hover {
+    opacity: 0.8;
+  }
+  
+  .store-window__image {
+    flex-shrink: 0;
+    width: 180px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  
+  .store-window__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .store-tab-content {
+    min-height: 30px;
+  }
+  
+  .shopify-tab-content {
+    display: none;
+  }
+  
+  .shopify-tab-content.current {
+    display: block;
+  }
+  
+  .store-link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .store-name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .store-description {
+    font-size: 12px;
+    opacity: 0.8;
   }
   
   .store-window {
@@ -42,20 +113,6 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-  }
-  
-  
-  .store-window__image {
-    flex-shrink: 0;
-    width: 180px;
-    height: 40px;
-    overflow: hidden;
-  }
-  
-  .store-window__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
   
   .store-window__content {
@@ -91,28 +148,48 @@
     
     {%- if section.blocks.size == 1 -%}
       <div class="announcement-bar__container">
+
         <!-- Stores Section (Left Side) -->
         <div class="stores-section">
-          <!-- Store 1 Window -->
-          <div class="store-window">
-            <a href="{{ section.settings.store1_url | default: '#' }}" class="store-window__link">
+          <ul class="shopify-tabs store-tabs">
+            <!-- Store 1 Tab -->
+            <li class="store-tab current" data-tab="store-tab-1">
               {%- if section.settings.store1_image != blank -%}
                 <div class="store-window__image">
                   {{ section.settings.store1_image | image_url: width: 100 | image_tag: loading: 'lazy', alt: section.settings.store1_name }}
                 </div>
               {%- endif -%}
-            </a>
-          </div>
-          
-          <!-- Store 2 Window -->
-          <div class="store-window">
-            <a href="{{ section.settings.store2_url | default: '#' }}" class="store-window__link">
+            </li>
+            
+            <!-- Store 2 Tab -->
+            <li class="store-tab" data-tab="store-tab-2">
               {%- if section.settings.store2_image != blank -%}
                 <div class="store-window__image">
                   {{ section.settings.store2_image | image_url: width: 100 | image_tag: loading: 'lazy', alt: section.settings.store2_name }}
                 </div>
               {%- endif -%}
-            </a>
+            </li>
+          </ul>
+          
+          <!-- Tab Content -->
+          <div class="store-tab-content">
+            <div id="store-tab-1" class="shopify-tab-content current">
+              <a href="{{ section.settings.store1_url | default: '#' }}" class="store-link">
+                <span class="store-name">{{ section.settings.store1_name }}</span>
+                {%- if section.settings.store1_description != blank -%}
+                  <span class="store-description">{{ section.settings.store1_description }}</span>
+                {%- endif -%}
+              </a>
+            </div>
+            
+            <div id="store-tab-2" class="shopify-tab-content">
+              <a href="{{ section.settings.store2_url | default: '#' }}" class="store-link">
+                <span class="store-name">{{ section.settings.store2_name }}</span>
+                {%- if section.settings.store2_description != blank -%}
+                  <span class="store-description">{{ section.settings.store2_description }}</span>
+                {%- endif -%}
+              </a>
+            </div>
           </div>
         </div>
         
@@ -253,6 +330,34 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    // Store tab functionality
+    const storeTabs = document.querySelectorAll('.store-tabs > li');
+    
+    storeTabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        
+        // Remove current class from all tabs and content
+        document.querySelectorAll('.store-tabs > li').forEach(function(t) {
+          t.classList.remove('current');
+        });
+        document.querySelectorAll('.shopify-tab-content').forEach(function(content) {
+          content.classList.remove('current');
+        });
+        
+        // Add current class to clicked tab and corresponding content
+        this.classList.add('current');
+        const targetContent = document.getElementById(tabId);
+        if (targetContent) {
+          targetContent.classList.add('current');
+        }
+      });
+    });
+  });
+</script>
 
 {% schema %}
 {
